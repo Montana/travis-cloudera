@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
 
-wget -q https://archive.cloudera.com/cm7/${CLOUDERA_MANAGER_VERSION}/ubuntu2004/apt/cloudera-manager.list
+cat > cloudera-manager.list << EOF
+deb [arch=amd64] https://archive.cloudera.com/cm7/${CLOUDERA_MANAGER_VERSION}/ubuntu2004/apt focal-cm7.4.4 contrib
+deb-src https://archive.cloudera.com/cm7/${CLOUDERA_MANAGER_VERSION}/ubuntu2004/apt focal-cm7.4.4 contrib
+EOF
 
 sudo cp cloudera-manager.list /etc/apt/sources.list.d/
 
