@@ -1,22 +1,23 @@
 #!/bin/bash
 set -e
 
-wget -q https://archive.cloudera.com/cm7/${CLOUDERA_MANAGER_VERSION}/ubuntu2004/apt/cloudera-manager.list
+sudo rm -f /etc/apt/sources.list.d/pgdg.list
+sudo rm -f /etc/apt/sources.list.d/postgresql.list
+sudo rm -f /etc/apt/sources.list.d/*postgresql*
+sudo rm -f /etc/apt/sources.list.d/*cloudera*
 
-sudo cp cloudera-manager.list /etc/apt/sources.list.d/
+sudo sed -i '/postgresql/d' /etc/apt/sources.list
+sudo sed -i '/cloudera/d' /etc/apt/sources.list
 
-wget -q https://archive.cloudera.com/cm7/${CLOUDERA_MANAGER_VERSION}/ubuntu2004/apt/archive.key
-sudo apt-key add archive.key
+sudo apt-get clean
+sudo rm -rf /var/lib/apt/lists/*
 
-sudo apt-get update --allow-unauthenticated
+sudo apt-get update -qq
 
-sudo apt-get install -y --allow-unauthenticated cloudera-manager-agent
+sudo apt-get install -y openjdk-8-jdk
 
-sudo mkdir -p /opt/cloudera/parcels
-sudo mkdir -p /etc/hadoop/conf
-sudo mkdir -p /var/log/cloudera-scm-agent
+sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-sudo chown -R $USER:$USER /opt/cloudera
-sudo chown -R $USER:$USER /var/log/cloudera-scm-agent
+sudo apt-get install -y wget curl
 
-rm -f cloudera-manager.list archive.key
+java -version
