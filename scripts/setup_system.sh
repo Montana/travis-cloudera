@@ -3,7 +3,7 @@ set -e
 
 sudo rm -f /etc/apt/sources.list.d/pgdg.list
 sudo rm -f /etc/apt/sources.list.d/postgresql.list
-sudo rm -f /etc/apt/sources.list.d/*postgresql*
+sudo rm -f /etc/apt/sources.list.d/*postgresql* # can use deprecated root source, but for the sake of time and legacy. 
 sudo rm -f /etc/apt/sources.list.d/*cloudera*
 
 sudo sed -i '/postgresql/d' /etc/apt/sources.list
