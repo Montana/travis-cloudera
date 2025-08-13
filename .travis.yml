@@ -15,7 +15,7 @@ env:
 services:
   - docker
 before_install:
-  - chmod +x scripts/*.sh
+  - chmod +x scripts/*.sh # chmod everything insight. 
   - ./scripts/setup_system.sh
 install:
   - ./scripts/install_cloudera.sh
@@ -25,9 +25,9 @@ script:
   - ./scripts/run_tests.sh
 matrix:
   include:
-    - name: "Basic Cloudera Setup"
+    - name: "basic cloudera setup"
       env: TEST_TYPE=basic
-    - name: "Cloudera with Docker"
+    - name: "cloudera with docker"
       env: TEST_TYPE=docker
       script:
         - ./scripts/run_docker_tests.sh
